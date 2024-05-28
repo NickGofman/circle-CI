@@ -2,7 +2,9 @@ version: '3'
 
 services:
   flask_app:
+
     build: ./app  # Path to your Flask application Dockerfile
+    container_name: app
     ports:
       - "8000:9090"  # Map container port 8000 to host port 8000
     volumes:
@@ -14,3 +16,6 @@ services:
       - flask_app  # Ensure that the Flask app container is running before starting the test container
     volumes:
       - ./app/tests:/app  # Mount your tests code into the container
+networks:
+  default:
+    name: app_network
