@@ -10,14 +10,22 @@ jobs:
           version: 20.10.7  # Ensure a compatible Docker version
           docker_layer_caching: true
 
-      - run:
-          name: Build Docker image
-          command: docker build -t weatherapp ./app/
+ #     - run:
+ #         name: Build Docker image
+ #         command: docker build -t weatherapp ./app/
 
+#      - run:
+#          name: Start Docker container
+#          command: docker run -d -p 8000:9090 --name weatherapp_container weatherapp
+
+#      - run:
+#          name: Run Tests
+#          command: python -m unittest discover -s ./app/tests
       - run:
-          name: Start Docker container
-          command: docker run -d -p 8000:9090 --name weatherapp_container weatherapp
+          name: Run Tests
+          command: docker-compose build
 
       - run:
           name: Run Tests
-          command: python -m unittest discover -s ./app/tests
+          command: docker-compose up
+
