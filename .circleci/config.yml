@@ -23,9 +23,9 @@ jobs:
 #          command: python -m unittest discover -s ./app/tests
       - run:
           name: Run Tests
-          command: docker compose build
+          command: docker-compose build
 
       - run:
           name: Run Tests
-          command: docker compose up
+          command: docker-compose up
 
