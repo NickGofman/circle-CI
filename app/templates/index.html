@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='Alecive-Flatwoken-Apps-Weather.ico') }}">
+<title>Weather Forecast</title>
+</head>
+    <body>
+        <h1>Weather Forecast</h1>
+        <div class="container">
+        <div class="weather-card">
+
+            {% if weather_data %}
+
+                    <div>
+                        <span >{{ weather_data.current_day["date_time"] }}</span>
+                        <div>
+                            <span class="temperature">{{ weather_data.current_day["temp"] }}°C</span>
+                            <h3 >{{ weather_data.country }}</h3>
+                        </div>
+                         <span class="">{{ weather_data.current_day["day_temp"] }}° / {{ weather_data.current_day["night_temp"] }}°</span>
+
+                    </div>
+
+            {%endif%}
+            <form method="post" action="{{ url_for('get_data') }}">
+                <label for="city">Enter City:</label>
+                <input type="text" id="city" name="city" required>
+                <button class="btn-search" type="submit">Get Weather</button>
+                {% if error_data %}
+                    <p class="error"> ERROR: {{ error_data }} </p>
+                {% endif %}
+            </form>
+        </div>
+        <div class="forecast-card">
+{% if weather_data %}
+    {% for day in weather_data.forecast %}
+        <div class="day-info">
+            <span >{{ day["date_time"] }}</span>
+            <div class="humidity">
+                <span class="font-semibold">{{ day["humidity"] }}%</span>
+                <img src="{{ url_for('static', filename='images/' + day['day_icon'] + '.png') }}" />
+            </div>
+            <span class="">{{ day["day_temp"] }}° / {{ day["night_temp"] }}°</span>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No weather data available.</p>
+{% endif %}
+        </div>
+        </div>
+
+    </body>
+</html>
