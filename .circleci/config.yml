@@ -1,43 +1,24 @@
-# Couldn't automatically generate a config from your source code.
-# This is a generic template to serve as a base for your custom config
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
+
 jobs:
-  test:
-    docker:
-      - image: python:3.9
-    steps:
-      - checkout
-      # Replace this with a real test runner invocation
-      - run:
-          name: Run tests
-          command: python -m unittest discover -s tests
   build:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/python:3.9
+    working_directory: /app 
     steps:
       - checkout
-      # Replace this with steps to build a package, or executable
+      - setup_remote_docker:
+          version: 20.10.7  # Ensure a compatible Docker version
+          docker_layer_caching: true
+
       - run:
-          name: Build an artifact
-          command: touch example.txt
-      - store_artifacts:
-          path: example.txt
-  deploy:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
+          name: Build Docker image
+          command: docker build -t weatherapp .
+
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-workflows:
-  example:
-    jobs:
-      - test
-      - build:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - test
+          name: Start Docker container
+          command: docker run -d -p 8000:9090 --name weatherapp_container weatherapp
+
+      - run:
+          name: Run Tests
+          command: python -m unittest discover -s tests
