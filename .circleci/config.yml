@@ -29,3 +29,9 @@ jobs:
           name: Run Tests
           command: docker-compose up -d
 
+
+      - discord/status:
+          fail_only: false
+          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+          webhook: "${URL_DISCORD}"
