@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   discord: antonioned/discord@0.1.0
-  checkov: bridgecrew/checkov@1.0.5
+  bridgecrew: bridgecrew/bridgecrew@1.0.5
+
 
 jobs:
   build:
@@ -50,13 +51,18 @@ jobs:
           command: |
             docker push registry.gitlab.com/team1414207/cicleci:1.0.$CIRCLE_BUILD_NUM
 
-      - run:
-          name: Run Checkov
-          command: checkov -d ./terraform
-
-
       - discord/status:
           fail_only: false
           failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
           success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
           webhook: "${URL_DISCORD}"
+
+  terraform:
+        executor: bridgecrew/default
+    steps:
+      - checkout
+      - bridgecrew/scan:
+          api-key-variable: BC_API_KEY
+          directory: ./terraform
+          output: json
+          soft-fail: false
