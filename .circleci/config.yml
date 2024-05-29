@@ -58,7 +58,7 @@ jobs:
           webhook: "${URL_DISCORD}"
 
   terraform_checkov:
-        executor: bridgecrew/default
+    executor: bridgecrew/default
     steps:
       - checkout
       - bridgecrew/scan:
