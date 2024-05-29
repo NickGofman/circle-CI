@@ -57,7 +57,7 @@ jobs:
           success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
           webhook: "${URL_DISCORD}"
 
-  terraform:
+  terraform_checkov:
         executor: bridgecrew/default
     steps:
       - checkout
@@ -66,3 +66,9 @@ jobs:
           directory: ./terraform
           output: json
           soft-fail: false
+
+workflows:
+  my-workflow:
+    jobs:
+      - build
+      - terraform_checkov
