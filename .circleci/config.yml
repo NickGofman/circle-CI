@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Tag Image
           command: |
-            docker tag app registry.gitlab.com/team1414207/cicleci:1.0.$CIRCLE_JOB_NUM 
+            docker tag flask_app registry.gitlab.com/team1414207/cicleci:1.0.$CIRCLE_JOB_NUM 
 
 
       - run:
