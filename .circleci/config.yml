@@ -12,20 +12,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: docker23  # Ensure a compatible Docker version
+          version: docker23  
           docker_layer_caching: true
 
- #     - run:
- #         name: Build Docker image
- #         command: docker build -t weatherapp ./app/
-
-#      - run:
-#          name: Start Docker container
-#          command: docker run -d -p 8000:9090 --name weatherapp_container weatherapp
-
-#      - run:
-#          name: Run Tests
-#          command: python -m unittest discover -s ./app/tests
       - run:
           name: Run Tests
           command: docker-compose build
@@ -71,4 +60,6 @@ workflows:
   my-workflow:
     jobs:
       - build
-      - terraform_checkov
+      - terraform_checkov:
+          requires:
+            - build
