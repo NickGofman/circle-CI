@@ -7,6 +7,9 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.9
+        auth:
+          username: $GIT_LAB_USER
+          password: $DOCKERHUB_PASS
     steps:
       - checkout
       - setup_remote_docker:
@@ -31,6 +34,23 @@ jobs:
       - run:
           name: Run Tests
           command: docker-compose up -d
+
+
+      - run:
+          name: Login to GitLab Container Registry
+          command: |
+            docker login -u $DOCKER_REGISTRY_USER --password-stdin registry.gitlab.com
+
+      - run:
+          name: Tag Image
+          command: |
+            docker build -t registry.gitlab.com/team1414207/cicleci:1.0.${CIRCLE_JOB} ./app/.
+
+
+      - run:
+          name: Push Docker Image to GitLab Container Registry
+          command: |
+            docker push registry.gitlab.com/team1414207/cicleci:1.0.${CIRCLE_JOB}
 
 
       - discord/status:
