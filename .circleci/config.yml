@@ -7,9 +7,6 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.9
-        auth:
-          username: $GIT_LAB_USER
-          password: $DOCKERHUB_PASS
     steps:
       - checkout
       - setup_remote_docker:
@@ -39,7 +36,7 @@ jobs:
       - run:
           name: Login to GitLab Container Registry
           command: |
-            docker login -u $GIT_LAB_USER -p $GIT_LAB_PASS
+            docker login registry.gitlab.com -u $GIT_LAB_USER -p $GIT_LAB_PASS
 
       - run:
           name: Tag Image
