@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   discord: antonioned/discord@0.1.0
+  checkov: bridgecrew/checkov@x.y.z
 
 jobs:
   build:
@@ -52,7 +53,6 @@ jobs:
       - run:
           name: Run Checkov
           command: checkov -d ./terraform
-
 
 
       - discord/status:
