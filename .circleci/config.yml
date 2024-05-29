@@ -41,13 +41,13 @@ jobs:
       - run:
           name: Tag Image
           command: |
-            docker build -t registry.gitlab.com/team1414207/cicleci:1.0.${CIRCLE_JOB_NUM} ./app/.
+            docker tag app registry.gitlab.com/team1414207/cicleci:1.0.$CIRCLE_JOB_NUM 
 
 
       - run:
           name: Push Docker Image to GitLab Container Registry
           command: |
-            docker push registry.gitlab.com/team1414207/cicleci:1.0.${CIRCLE_JOB_NUM}
+            docker push registry.gitlab.com/team1414207/cicleci:1.0.$CIRCLE_JOB_NUM
 
 
       - discord/status:
