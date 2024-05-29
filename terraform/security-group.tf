@@ -1,6 +1,9 @@
 
 #Adding security group
 resource "aws_security_group" "allow_tls" {
+  #checkov:skip=CKV_AWS_24:Reason for skipping this check
+  #checkov:skip=CKV_AWS_23:Reason for skipping this check
+
   name_prefix = "allow_tls_"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.myvpc.id

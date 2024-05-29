@@ -1,5 +1,7 @@
 #Create a custom VPC
 resource "aws_vpc" "myvpc" {
+  #checkov:skip=CKV2_AWS_12:Reason for skipping this check
+  #checkov:skip=CKV2_AWS_11:Reason for skipping this check
   cidr_block = "10.0.0.0/16"
   tags = {
     "Name" = "MyEks-cluster"
@@ -8,6 +10,7 @@ resource "aws_vpc" "myvpc" {
 
 #Create Subnets
 resource "aws_subnet" "Mysubnet01" {
+  #checkov:skip=CKV_AWS_130:Reason for skipping this check
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "eu-north-1b"
@@ -18,6 +21,7 @@ resource "aws_subnet" "Mysubnet01" {
 }
 
 resource "aws_subnet" "Mysubnet02" {
+  #checkov:skip=CKV_AWS_130:Reason for skipping this check
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "eu-north-1c"

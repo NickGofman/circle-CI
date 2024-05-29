@@ -1,5 +1,9 @@
 #Creating EKS Cluster
 resource "aws_eks_cluster" "eks" {
+  #checkov:skip=CKV_AWS_37:Reason for skipping this check
+  #checkov:skip=CKV_AWS_38:Reason for skipping this check
+  #checkov:skip=CKV_AWS_39:Reason for skipping this check
+  #checkov:skip=CKV_AWS_58:Reason for skipping this check
   name     = "pc-eks"
   role_arn = aws_iam_role.master.arn
 

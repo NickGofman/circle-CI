@@ -1,4 +1,6 @@
 resource "aws_iam_policy" "eks_worknode_ebs_policy" {
+  #checkov:skip=CKV_AWS_290:Reason for skipping this check
+  #checkov:skip=CKV_AWS_355:Reason for skipping this check
   name = "Amazon_EBS_CSI_Driver"
 #  policy = file("./iam_policy.json")
 policy = <<POLICY

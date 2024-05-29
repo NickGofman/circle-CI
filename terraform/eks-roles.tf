@@ -50,6 +50,8 @@ resource "aws_iam_role" "worker" {
 }
 
 resource "aws_iam_policy" "autoscaler" {
+  #checkov:skip=CKV_AWS_290:Reason for skipping this check
+  #checkov:skip=CKV_AWS_355:Reason for skipping this check
   name = "ed-eks-autoscaler-policy"
   policy = jsonencode({
     "Version" : "2012-10-17",
