@@ -58,7 +58,9 @@ jobs:
           soft-fail: false
 
   deploy-to-aws:
-    executor: aws-eks/python3
+#    executor: aws-eks/python3
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
