@@ -49,3 +49,9 @@ https://medium.com/@sushantkapare1717/creating-aws-eks-cluster-using-terraform-b
 # NGINX Ingress Controller
 https://amod-kadam.medium.com/setting-up-nginx-ingress-controller-with-eks-f27390bcf804
 
+
+
+
+# Run test using terratest
+
+go test -v -timeout 30m

@@ -3,7 +3,8 @@ version: 2.1
 orbs:
   discord: antonioned/discord@0.1.0
   bridgecrew: bridgecrew/bridgecrew@1.0.5
-
+  aws-eks: circleci/aws-eks@1.0.0
+  kubernetes: circleci/kubernetes@0.11.1
 
 jobs:
   build:
@@ -56,6 +57,22 @@ jobs:
           output: json
           soft-fail: false
 
+  deploy-to-aws:
+    executor: aws-eks/python3
+    steps:
+      - checkout
+      - run:
+          name: Initialize Terraform
+          command: |
+            cd ./terraform
+            terraform init
+      - run:
+          name: Apply Terraform Configuration
+          command: |
+            cd ./terraform
+            terraform apply -auto-approve
+
+
 workflows:
   my-workflow:
     jobs:
@@ -63,3 +80,7 @@ workflows:
       - terraform_checkov:
           requires:
             - build
+      - deploy-to-aws:
+          requires:
+            - build
+            - terraform_checkov
